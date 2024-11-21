@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Card</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Kanit", sans-serif;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 350px; 
+            height: 550px; /* เพิ่มความสูงเพื่อให้การ์ดมีพื้นที่มากขึ้น */
+            perspective: 1000px;
+            margin: 50px auto;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+
+        .flip-card-front {
+            background: linear-gradient(135deg, #f36d95 30%, #a00126 88%, #f8f7f7 40%, #a00126 48%);
+            color: #f2e6e2;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, #f36d95 30%, #a00126 88%, #f8f7f7 40%, #a00126 48%);
+            color: #f2e6e2;
+            transform: rotateY(180deg);
+        }
+
+        .logo {
+            display: flex;
+            justify-content: space-between;
+            width: 80%; /* ปรับขนาดให้ภาพโลโก้ใกล้ชิดกันมากขึ้น */
+            
+        }
+
+        
+        h2 {
+            font-size: 1.5em;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .card-content img {
+            width: 150px;
+            margin-bottom: 10px;
+            border-radius: 8px; /* เพิ่มความโค้งมนให้รูปภาพ */
+        }
+
+        .card-content p {
+            margin: 5px 0;
+            font-size: 1em;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .qr-codes {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .qr-code {
+            text-align: center;
+        }
+
+        .qr-code p {
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .qr-code img {
+            border-radius: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <div class="logo">
+                <img src="logo1.jpeg" alt="Logo 1"width="50px" >
+                <img src="logo2.png" alt="Logo 2" width="50px" >
+                <img src="logo3.png" alt="Logo 3" width="120px">
+            </div>
+            <h2>บัตรประจำตัวสภานักศึกษา</h2>
+            <div class="card-content">
+                <img src="pf1.JPG" alt="Avatar">
+                <p>สภานักศึกษา องค์การนักศึกษา</p>
+                <hr>
+                <p>ชื่อ : อินซานี รัตนวงศ์สวัสดิ์</p>
+                <p>ฝ่าย : โครงการและงบประมาณ</p>
+                <p>ตำแหน่ง : ประธานฝ่าย</p>
+                <p>วันหมดอายุ : 22 กันยายน 2568</p>
+            </div>
+        </div>
+        <div class="flip-card-back">
+            <h3>สภานักศึกษา องค์การนักศึกษา</h3><br>
+            <div>
+                <img alt="Aspose Barcode" src="bq.png" width="250px">
+            </div><br><br>
+            <p>ติดต่อฉัน</p>
+            <div class="qr-codes">
+                <div class="qr-code">
+                    <img src="myfb.jpeg" alt="Facebook" width="50px">
+                    <p>Facebook</p>
+                </div>
+                <div class="qr-code">
+                    <img src="page.jpeg" alt="Page" width="50px">
+                    <p>Page</p>
+                </div>
+                <div class="qr-code">
+                    <img src="ig.jpeg" alt="Instagram" width="50px">
+                    <p>Instagram</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

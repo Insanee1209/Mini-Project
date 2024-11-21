@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"></mata>
+	<title>about myUniversity</title>
+</head>
+<body>
+
+	<h1>Your Location</h1>
+	<p>Click the button to get your coordinates.</p>
+	
+	<button onclick="getLocation()">Try It</button>
+	
+	<p id="demo"></p>
+	
+	<script>
+	const x = document.getElementById("demo");
+	
+	function getLocation() {
+	  if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition);
+	  } else { 
+		x.innerHTML = "Geolocation is not supported by this browser.";
+	  }
+	}
+	
+	function showPosition(position) {
+	  x.innerHTML = "Latitude: " + position.coords.latitude + 
+	  "<br>Longitude: " + position.coords.longitude;
+	}
+	</script>
+<p>	
+<!--example of external link ctrl+?-->
+<a href="mylovemusic.html">My Music</a>| <a href="about_me.html">Home</a>| <a href="education.html">Education</a>
+
+</p>
+
+
+</body>
+</html>
+
+

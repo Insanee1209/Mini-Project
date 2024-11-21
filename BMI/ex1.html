@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // Example of internal script
+        function clickme() {
+            const days = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+            const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+
+            let date = new Date();
+            let year = date.getFullYear(); // yyyy
+            let month = date.getMonth(); // 0...11
+            let day = date.getDate(); // 1...31
+            let dayOfWeek = date.getDay(); // 0...6
+
+            let fname = document.forms["myform"]["fname"].value;
+            let lname = document.forms["myform"]["lname"].value;
+            let weight = parseFloat(document.forms["myform"]["weight"].value);
+            let height = parseFloat(document.forms["myform"]["height"].value);
+
+            // Compute BMI
+            let bmi = (weight / (height / 100) ** 2).toFixed(2);
+
+            let result;
+            if (bmi < 18.5) {
+                result = "น้ำหนักต่ำกว่ามาตรฐาน";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                result = "น้ำหนักปกติ";
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                result = "น้ำหนักเกิน";
+            }
+            // Format date in Thai
+            document.getElementById('demo').innerHTML = "วันที่ ${days[dayOfWeek]}ที่ ${day} ${months[month]} ${year + 543}";
+            document.getElementById('hello').innerHTML = "Hello ${fname} ${lname} !";
+            document.getElementById('bmi').innerHTML = "(BMI) ${bmi}";
+            document.getElementById('rs').innerHTML = "resalt ${result}";
+        }
+    </script>
+</head>
+
+<body>
+    
+        
+        <br><br>
+        <form name="myform">
+
+            <label for="fname">First name:</label><br><br>
+            <input type="text" id="fname" name="fname"><br><br>
+
+            <label for="lname">Last name:</label><br><br>
+            <input type="text" id="lname" name="lname"><br><br><br>
+
+            <label for="weight">Your weight (kg):</label><br><br>
+            <input type="text" id="weight" name="weight"><br><br>
+
+            <label for="height">Your height (cm):</label><br><br>
+            <input type="text" id="height" name="height"><br><br><br>
+
+            <input type="button" value="submit" onclick="clickme()">
+
+        </form> 
+        <br>
+        <p id="demo"></p>
+        <p id="hello"></p>
+        <p id="bmi"></p>
+        <p id="rs"></p>
+    
+</body>
+</html>

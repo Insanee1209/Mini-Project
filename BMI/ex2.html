@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap">
+    
+    <title>BMI Calculator</title>
+    <!-- Import SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        body {
+            background-image: url('bg.png'); /* ใส่ลิงก์รูปภาพพื้นหลังที่คุณต้องการ */
+            background-size: cover; /* ให้รูปภาพปรับขนาดตามหน้าจอ */
+            background-position: center; /* จัดตำแหน่งให้รูปภาพอยู่กึ่งกลาง */
+            background-attachment: fixed; /* ให้พื้นหลังเลื่อนตามหน้า */
+            font-family: 'Prompt', sans-serif; /* ฟอนต์ที่เป็นทางการขึ้น */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        h2 {
+            font-size: 30px;
+            color: #2c3e50; /* สีเทาเข้ม */
+            font-weight: 600;
+        }
+
+        label {
+            color: #2c3e50; /* สีเทาเข้ม */
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="button"], input[type="number"] {
+            width: 300px;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+
+        input[type="button"] {
+            background-color: #3498db; /* สีฟ้า */
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="button"]:hover {
+            background-color: #2980b9; /* สีฟ้าเข้มเมื่อ hover */
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        p {
+            color: #2c3e50; /* สีเทาเข้ม */
+        }
+
+        #result {
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        function clickme(){
+            Swal.fire({
+                title: "กรอกข้อมูลถูกต้อง.",
+                width: 600,
+                padding: "3em",
+                background: "#fff url(https://i.pinimg.com/564x/85/ba/eb/85baeb028ea4724a06769e075cf0a419.jpg)",
+            });
+          
+            const Day = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+            const Month = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+            const dte = new Date(); // dte will be the current datetime
+            let yyyy = dte.getFullYear(); // ค.ศ.
+            let m = dte.getMonth(); // 0-11
+            let d = dte.getDate(); // 1-31
+            let dy = dte.getDay(); // 0-6
+
+            var fname = document.forms["myform"]["fname"].value;
+            var lname = document.forms["myform"]["lname"].value;
+            var w = document.forms["myform"]["weight"].value;
+            var h = document.forms["myform"]["height"].value;
+            
+            if (lname === "") {
+                Swal.fire({
+                    html: '<span style="font-weight: bold;">Error (ข้อมูลผิดพลาด)</span><br>Please enter your last name.<br>(โปรดกรอกนามสกุลของคุณ)',
+                    icon: "warning"
+                });
+                return;
+            }
+
+            if (w <= 0  || w > 300) {
+                Swal.fire({
+                    html: '<span style="font-weight: bold;">Error (ข้อมูลผิดพลาด)</span><br>โปรดตรวจสอบน้ำหนักของคุณ.',
+                    icon: "warning"
+                });
+                return;
+            }
+
+            if (h <= 50 || h > 300) {
+                Swal.fire({
+                    html: '<span style="font-weight: bold;">Error (ข้อมูลผิดพลาด)</span><br>โปรดตรวจสอบส่วนสูงของคุณ.',
+                    icon: "warning"
+                });
+                return;
+            }
+
+            var bmi = (w / (h / 100) ** 2).toFixed(2);
+            
+            let result;
+            if (bmi < 18.5) {
+                result = "Underweight";
+            } else if (bmi >= 25) {
+                result = "Overweight";
+            } else {
+                result = "Normal";
+            }
+
+            document.getElementById('demo').innerHTML = "วัน" + Day[dy] + " ที่ " + d + " " + Month[m] + " " + (yyyy + 543);
+            document.getElementById('hello').innerHTML = "Hello " + fname + " " + lname + " !";
+            document.getElementById('bmi').innerHTML = "Your BMI is " + bmi;
+            document.getElementById('result').innerHTML = "Your result is " + result;
+        }
+    </script>
+</head>
+
+<body>
+<center>
+    <h2>BMI Calculator</h2>
+    <br><br>
+    <form name="myform">
+
+        <label for="fname"> First name : </label><br>
+        <input required type="text" id="fname" name="fname"><br>
+
+        <label for="lname"> Last name : </label><br>
+        <input type="text" id="lname" name="lname"><br>
+
+        <label for="weight"> Your weight (kg) : </label><br>
+        <input required type="number" id="weight" name="weight"><br>
+
+        <label for="height"> Your height (cm) : </label><br>
+        <input required type="number" id="height" name="height"><br>
+
+        <input type="button" value="Submit" onclick="clickme()">
+
+    </form> 
+    <br>
+    <p id="demo"></p>
+    <p id="hello"></p>
+    <p id="bmi"></p>
+    <p id="result"></p>
+
+</center>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        center {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #333333;
+        }
+
+        label, input {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+
+        input[type="button"] {
+            background-color: #744b0e;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        input[type="button"]:hover {
+            background-color: #c80a0a;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333333;
+        }
+
+        /* Image styling */
+        img {
+            display: none; /* Hide the image initially */
+            margin-top: 20px;
+            max-width: 100%; /* Image will scale based on container */
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Function to calculate BMI
+            $("button[name='submit']").click(function(){
+                let fname = $("#fname").val();
+                let lname = $("#lname").val();
+                let w = $("#weight").val();
+                let h = $("#height").val();
+
+                if (!w) {
+                    alert("กรุณากรอกน้ำหนัก!");
+                    return;
+                }
+
+                if (!h) {
+                    alert("กรุณากรอกความสูง!");
+                    return;
+                }
+
+                w = parseFloat(w);
+                h = parseFloat(h) / 100; // แปลงความสูงเป็นเมตร
+                let bmi = w / (h ** 2);
+
+                const days = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+                const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+
+                let dte = new Date();
+                let yyyy = dte.getFullYear() + 543;
+                let m = dte.getMonth();
+                let d = dte.getDate();
+                let dy = dte.getDay();
+
+                let dayName = days[dy];
+                let monthName = months[m];
+
+                let fullDate = "วัน" + dayName + " ที่ " + d + " " + monthName + " " + yyyy;
+                $("#demo").html(fullDate);
+                $("#hello").html("สวัสดี" + " "+fname + " " + lname + "!");
+                $("#bmi").html("ค่า BMI ของคุณ :  " + bmi.toFixed(2));
+
+                let result;
+                if (bmi < 18.5) {
+                    result = "น้ำหนักต่ำกว่าเกณฑ์";
+                    $("#resultImage").attr("src", "bmi1.jpg"); // Replace with your image path
+                } else if (bmi >= 18.5 && bmi <= 24.9) {
+                    result = "สมส่วน";
+                    $("#resultImage").attr("src", "bmi3.png"); // Replace with your image path
+                } else if (bmi >= 25 && bmi <= 29.9) {
+                    result = "น้ำหนักเกิน";
+                    $("#resultImage").attr("src", "bmi4.png"); // Replace with your image path
+                } else {
+                    result = "โรคอ้วน";
+                    $("#resultImage").attr("src", "bmi5.png"); // Replace with your image path
+                }
+
+                $("#rs").html("ผลลัพธ์ : " + result);
+                $("#resultImage").show(); // Show the image
+            });
+
+            // Function to show BMI calculation image
+            $("button[name='bmiInfo']").click(function(){
+                $("#bmiInfoImage").attr("src", "bmi0.jpg"); // Replace with your BMI calculation image
+                $("#bmiInfoImage").show(); // Show the image
+            });
+
+            // Function to reset form and hide results
+            $("button[name='reset']").click(function(){
+                // Clear all input fields
+                $("#fname").val('');
+                $("#lname").val('');
+                $("#weight").val('');
+                $("#height").val('');
+                
+                // Clear result text and hide images
+                $("#demo").html('');
+                $("#hello").html('');
+                $("#bmi").html('');
+                $("#rs").html('');
+                $("#resultImage").hide(); // Hide BMI result image
+                $("#bmiInfoImage").hide(); // Hide BMI info image
+            });
+        });
+    </script>
+</head>
+
+<body>
+<center>
+    <h2>BMI Calculator</h2>
+    <form name="myform">
+        <label for="fname">ชื่อของคุณ :</label>
+        <input type="text" id="fname" name="fname">
+        
+        <label for="lname">นามสกุลของคุณ :</label>
+        <input type="text" id="lname" name="lname">
+        
+        <label for="weight">น้ำหนักของคุณ (kg.):</label>
+        <input type="number" id="weight" name="weight">
+        
+        <label for="height">ส่วนสูงของคุณ (cm.):</label>
+        <input type="number" id="height" name="height">
+        
+        <button type="button" name="submit">Submit</button>
+        <button type="button" name="bmiInfo">วิธีคิดค่า BMI</button>
+        <button type="button" name="reset">Reset</button>
+        
+    </form>
+    
+    <p id="demo"></p>
+    <p id="hello"></p>
+    <p id="bmi"></p>
+    <p id="rs"></p>
+
+    <!-- Image to display based on BMI -->
+    <img id="resultImage" src="" alt="BMI Result Image">
+
+    <!-- Image to display BMI formula when "วิธีคิดค่า BMI" button is clicked -->
+    <img id="bmiInfoImage" src="" alt="BMI Calculation Formula">
+</center>
+</body>
+</html>
